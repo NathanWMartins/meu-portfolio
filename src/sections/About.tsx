@@ -43,7 +43,7 @@ export default function AboutSection({ dark }: Props) {
                         alt="Portrait"
                         preview={false}
                         style={{
-                            width: "90%",
+                            width: "100%",
                             borderRadius: 24,
                             boxShadow: "0 16px 40px rgba(0,0,0,0.18)",
                             display: "block",
@@ -57,7 +57,7 @@ export default function AboutSection({ dark }: Props) {
                     </Paragraph>
 
                     <Space size={16} wrap>
-                        <Card style={{ ...boxStyle, width: 320, marginTop: 20 }} bordered>
+                        <Card style={{ ...boxStyle, width: 290, marginTop: 20 }} bordered>
                             <Space size="small">
                                 <ReadOutlined />
                                 <Text type="secondary">{t("about_card_title_1")}</Text>
@@ -66,7 +66,7 @@ export default function AboutSection({ dark }: Props) {
                                 {t("about_card_content_1")}
                             </Paragraph>
                         </Card>
-                        <Card style={{ ...boxStyle, width: 320, marginTop: 20 }} bordered>
+                        <Card style={{ ...boxStyle, width: 290, marginTop: 20 }} bordered>
                             <Space size="small">
                                 <ReadOutlined />
                                 <Text type="secondary">{t("about_card_title_2")}</Text>
