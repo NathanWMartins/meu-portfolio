@@ -64,7 +64,7 @@ const MESSAGES = {
         home_resume_btn: "meu currículo",
         // About
         about_title: "Sobre Mim",
-        about_p1: "Sou um Desenvolvedor Full-Stack especializado em React + TypeScript no front-end e Java + Spring Boot no back-end. Gosto de criar interfaces limpas e acessíveis, além de construir APIs robustas com arquiteturas seguras e mantíveis e bancos de dados relacionais.",
+        about_p1: "Desenvolvedor Full-Stack especializado em React + TypeScript no front e Java + Spring Boot no back. Gosto de criar interfaces limpas e acessíveis, além de construir APIs robustas com arquiteturas seguras e mantíveis e bancos de dados relacionais.",
         about_card_title_1: "Formação",
         about_card_content_1: "Bacharel em Ciência da Computação pelo IFSC - Lages.",
         about_card_title_2: "Cursos Profissionais",
