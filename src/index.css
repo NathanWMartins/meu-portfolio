@@ -9,7 +9,13 @@ html {
 }
 
 body {
-  background: radial-gradient(1200px 600px at 50% 0%, rgba(22, 119, 255, 0.08), transparent 60%), linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 30%);
+  background:
+    radial-gradient(
+      1200px 600px at 50% 0%,
+      rgba(22, 119, 255, 0.08),
+      transparent 60%
+    ),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 30%);
 }
 
 /* Carrossel "Tools I use" */
@@ -29,4 +35,93 @@ body {
 
 .tools-track:hover {
   animation-play-state: paused;
+}
+
+.project-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.border-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+  opacity: 0;
+}
+
+/* TOP */
+.border-line.top {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+}
+
+/* RIGHT */
+.border-line.right {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #3b82f6, transparent);
+}
+
+/* BOTTOM */
+.border-line.bottom {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+}
+
+/* LEFT */
+.border-line.left {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #3b82f6, transparent);
+}
+
+.project-card:hover .top {
+  animation: borderTop 1.2s linear forwards;
+  opacity: 1;
+}
+
+.project-card:hover .right {
+  animation: borderRight 1.2s linear forwards;
+  animation-delay: 0.3s;
+  opacity: 1;
+}
+
+.project-card:hover .bottom {
+  animation: borderBottom 1.2s linear forwards;
+  animation-delay: 0.6s;
+  opacity: 1;
+}
+
+.project-card:hover .left {
+  animation: borderLeft 1.2s linear forwards;
+  animation-delay: 0.9s;
+  opacity: 1;
+}
+
+@keyframes borderTop {
+  from { left: -100%; }
+  to { left: 100%; }
+}
+
+@keyframes borderRight {
+  from { top: -100%; }
+  to { top: 100%; }
+}
+
+@keyframes borderBottom {
+  from { right: -100%; }
+  to { right: 100%; }
+}
+
+@keyframes borderLeft {
+  from { bottom: -100%; }
+  to { bottom: 100%; }
 }
