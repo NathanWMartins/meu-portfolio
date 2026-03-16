@@ -17,7 +17,7 @@ export default function ContactSection() {
     const socials = [
         {
             key: "linkedin",
-            href: "https://www.linkedin.com/in/nathan-will-martins/",
+            href: "https://www.linkedin.com/in/nathanwmartins/",
             label: "LinkedIn",
             icon: <AiFillLinkedin size={28} />,
         },
