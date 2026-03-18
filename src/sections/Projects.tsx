@@ -15,6 +15,7 @@ import { useI18n } from "../i18n/I18nProvider";
 const { Title, Paragraph } = Typography;
 import { motion } from "framer-motion";
 import { Content } from "antd/es/layout/layout";
+import BorderGlow from "../components/BorderGlow";
 
 const techIcons: Record<
   string,
@@ -77,10 +78,15 @@ type Project = {
   githubUrlOther?: string;
 };
 
-export default function ProjectsSection() {
+interface ProjectsProps {
+  dark: boolean;
+}
+
+export default function ProjectsSection({ dark }: ProjectsProps) {
   const [selected, setSelected] = useState<Project | null>(null);
   const screens = Grid.useBreakpoint();
   const [currentImage, setCurrentImage] = useState(0);
+  const isDark = dark;
 
   const { t } = useI18n();
 
@@ -179,15 +185,25 @@ export default function ProjectsSection() {
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.25 }}
               >
-                <div className="project-card">
-                  <span className="border-line top"></span>
-                  <span className="border-line right"></span>
-                  <span className="border-line bottom"></span>
-                  <span className="border-line left"></span>
+                <BorderGlow
+                  edgeSensitivity={30}
+                  glowColor="40 80 80"
+                  backgroundColor={isDark ? "#060010" : "#ffffff"}
+                  borderRadius={28}
+                  glowRadius={40}
+                  glowIntensity={1}
+                  coneSpread={25}
+                  animated={false}
+                  colors={
+                    dark
+                      ? ["#c084fc", "#f472b6", "#38bdf8"]
+                      : ["#7c3aed", "#db2777", "#2563eb"]
+                  }
+                >
                   <Card
                     hoverable
                     style={{
-                      borderRadius: 0,
+                      borderRadius: 16,
                       overflow: "hidden",
                       background: "var(--ant-color-bg-container)",
                     }}
@@ -243,7 +259,7 @@ export default function ProjectsSection() {
                       })}
                     </Space>
                   </Card>
-                </div>
+                </BorderGlow>
               </motion.div>
             </Col>
           ))}

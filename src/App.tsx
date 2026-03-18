@@ -28,7 +28,7 @@ export default function App() {
             <HomeSection />
             <AboutSection dark={dark} />
             <ServicesSection />
-            <ProjectsSection />
+            <ProjectsSection dark={dark} />
             <ContactSection />
           </Content>
 
