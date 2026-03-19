@@ -23,6 +23,7 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
   const { token } = antdTheme.useToken();
   const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
+  const isScrolledDark = scrolled && dark;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,7 +80,7 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
 
         margin: scrolled ? "12px auto" : "0",
 
-        width: scrolled ? "calc(100% - 32px)" : "100%",
+        width: scrolled ? "calc(100% - 100px)" : "100%",
 
         borderRadius: scrolled ? 16 : 0,
 
@@ -103,9 +104,7 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
         style={{
           fontWeight: 800,
           fontSize: 18,
-          color: scrolled  
-                ? "#fff" 
-                : token.colorPrimary,
+          color: scrolled ? "#fff" : token.colorPrimary,
         }}
       >
         Nathan.
@@ -126,11 +125,22 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
       />
 
       <div style={{ display: "flex", gap: 8 }}>
-        <LanguageSwitcher />
+        <LanguageSwitcher
+          style={{
+            background: isScrolledDark ? "#fff" : "transparent",
+            color: isScrolledDark ? "#000" : undefined,
+            border: isScrolledDark ? "none" : undefined,
+          }}
+        />
         <Button
           onClick={onToggleTheme}
           aria-label="Toggle theme"
           icon={dark ? <SunOutlined /> : <MoonOutlined />}
+          style={{
+            background: isScrolledDark ? "#fff" : "transparent",
+            color: isScrolledDark ? "#000" : undefined,
+            border: isScrolledDark ? "none" : undefined,
+          }}
         />
       </div>
     </Header>

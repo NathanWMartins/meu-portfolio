@@ -6,7 +6,11 @@ const Flag: React.FC<{ code: "pt" | "en" }> = ({ code }) => (
     <span style={{ fontSize: 18, marginRight: 8, marginBottom: 5 }}>{code === "pt" ? "🇧🇷" : "🇺🇸"}</span>
 );
 
-export default function LanguageSwitcher() {
+type Props = {
+  style?: React.CSSProperties;
+};
+
+export default function LanguageSwitcher({ style }: Props) {
     const { lang, setLang } = useI18n();
 
     const items: MenuProps["items"] = [
@@ -30,7 +34,7 @@ export default function LanguageSwitcher() {
             }}
             trigger={["click"]}
         >
-            <Button>
+            <Button style={style}>
                 <Flag code={lang} />
                 {lang === "pt" ? "Português" : "English"}
             </Button>
