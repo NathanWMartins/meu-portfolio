@@ -1,6 +1,6 @@
-import { Dropdown, Button } from "antd";
+import { Dropdown, Button, Grid } from "antd";
 import type { MenuProps } from "antd";
-import { useI18n } from "../i18n/I18nProvider";
+import { useI18n } from "../i18n/useI18n";
 
 const Flag: React.FC<{ code: "pt" | "en" }> = ({ code }) => (
     <span style={{ fontSize: 18, marginRight: 8, marginBottom: 5 }}>{code === "pt" ? "🇧🇷" : "🇺🇸"}</span>
@@ -12,6 +12,8 @@ type Props = {
 
 export default function LanguageSwitcher({ style }: Props) {
     const { lang, setLang } = useI18n();
+    const screens = Grid.useBreakpoint();
+    const isMobile = !screens.md;
 
     const items: MenuProps["items"] = [
         {
@@ -36,7 +38,7 @@ export default function LanguageSwitcher({ style }: Props) {
         >
             <Button style={style}>
                 <Flag code={lang} />
-                {lang === "pt" ? "Português" : "English"}
+                {isMobile ? lang.toUpperCase() : lang === "pt" ? "Português" : "English"}
             </Button>
         </Dropdown>
     );

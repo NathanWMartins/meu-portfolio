@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useEffect, useState } from "react";
+import React, { createContext, useMemo, useEffect, useState } from "react";
 
 export type Lang = "pt" | "en";
 
@@ -11,14 +11,14 @@ const MESSAGES = {
         nav_projects: "My Projects",
         nav_contact: "Contact me",
         // Home
-        home_greeting: "Hi! I’m",
+        home_greeting: "Hi! I'm",
         home_job: "full-stack web developer<br />based in Brazil.",
         home_desription: "Full-Stack Developer experienced in React and TypeScript on the front-end, and Java with Spring Boot on the back-end. Passionate about building modern, secure, and high-performance applications — from intuitive user interfaces to robust service architecture and database design.",
         home_contact_btn: "contact me",
         home_resume_btn: "my resume",
         // About
         about_title: "About Me",
-        about_p1: "I’m a Full-Stack Developer specializing in React + TypeScript on the front-end and Java + Spring Boot on the back-end. I enjoy crafting clean, accessible UIs and building robust APIs with secure, maintainable architectures and relational databases.",
+        about_p1: "I'm a Full-Stack Developer currently working at Megaweb IT, where I build solutions with C# and .NET. I also specialize in React + TypeScript on the front-end and Java + Spring Boot on the back-end. I enjoy crafting clean, accessible UIs and building robust APIs with secure, maintainable architectures and relational databases.",
         about_card_title_1: "Education",
         about_card_content_1: "Bachelor's degree in Computer Science from IFSC - Lages.",
         about_card_title_2: "Professional Courses",
@@ -44,10 +44,10 @@ const MESSAGES = {
         projects_title_4: "FutSpot – Full Stack Platform for Sports Court Management and Scheduling",
         projects_desc_4: "Web platform developed to connect sports court renters and players, centralizing the management of schedules, availability, and reservations. It implements authentication with JWT, permission control by profile, relational modeling with referential integrity, and business rules for automatic validation of scheduling conflicts. Backend structured with NestJS in a modular architecture and REST APIs, with a React frontend focused on intuitive experience and streamlined reservation flow.",
         projects_btn_view: "View project",
-        // Contact 
-        contact_title: "Let’s connect!",
+        // Contact
+        contact_title: "Let's connect!",
         contact_p1: "I'm always open to new collaborations, ideas, and projects that challenge creativity and technology.",
-        contact_p2: "Feel free to reach out through any of the platforms below — I’d love to hear from you!",
+        contact_p2: "Feel free to reach out through any of the platforms below — I'd love to hear from you!",
         btn_contact: "contact me",
         btn_resume: "my resume",
     },
@@ -66,7 +66,7 @@ const MESSAGES = {
         home_resume_btn: "meu currículo",
         // About
         about_title: "Sobre Mim",
-        about_p1: "Desenvolvedor Full-Stack especializado em React + TypeScript no front e Java + Spring Boot no back. Gosto de criar interfaces limpas e acessíveis, além de construir APIs robustas com arquiteturas seguras e mantíveis e bancos de dados relacionais.",
+        about_p1: "Sou Desenvolvedor Full-Stack e atualmente trabalho na Megaweb IT, onde desenvolvo soluções com C# e .NET. Também me especializo em React + TypeScript no front-end e Java + Spring Boot no back-end. Gosto de criar interfaces limpas e acessíveis, além de construir APIs robustas com arquiteturas seguras e mantíveis e bancos de dados relacionais.",
         about_card_title_1: "Formação",
         about_card_content_1: "Bacharel em Ciência da Computação pelo IFSC - Lages.",
         about_card_title_2: "Cursos Profissionais",
@@ -101,13 +101,15 @@ const MESSAGES = {
     },
 } as const;
 
-type I18nCtx = {
+export type MessageKey = keyof typeof MESSAGES["en"];
+
+export type I18nCtx = {
     lang: Lang;
     setLang: (l: Lang) => void;
-    t: (key: keyof typeof MESSAGES["en"]) => string;
+    t: (key: MessageKey) => string;
 };
 
-const I18nContext = createContext<I18nCtx | null>(null);
+export const I18nContext = createContext<I18nCtx | null>(null);
 
 export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [lang, setLang] = useState<Lang>(() => (localStorage.getItem("lang") as Lang) || "en");
@@ -118,14 +120,8 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const t = useMemo(() => {
         const dict = MESSAGES[lang];
-        return (key: keyof typeof MESSAGES["en"]) => dict[key] ?? key;
+        return (key: MessageKey) => dict[key] ?? key;
     }, [lang]);
 
     return <I18nContext.Provider value={{ lang, setLang, t }}>{children}</I18nContext.Provider>;
-};
-
-export const useI18n = () => {
-    const ctx = useContext(I18nContext);
-    if (!ctx) throw new Error("useI18n must be used within I18nProvider");
-    return ctx;
 };

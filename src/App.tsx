@@ -24,8 +24,8 @@ export default function App() {
         <Layout style={{ minHeight: "100dvh" }}>
           <HeaderNav dark={dark} onToggleTheme={() => setDark(v => !v)} />
 
-          <Content>
-            <HomeSection />
+          <Content style={{ overflowX: "hidden" }}>
+            <HomeSection dark={dark} />
             <AboutSection dark={dark} />
             <ServicesSection dark={dark} />
             <ProjectsSection dark={dark} />

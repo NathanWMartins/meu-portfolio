@@ -8,7 +8,7 @@ import {
   MoonOutlined,
   SunOutlined,
 } from "@ant-design/icons";
-import { useI18n } from "../i18n/I18nProvider";
+import { useI18n } from "../i18n/useI18n";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useEffect, useState } from "react";
 
