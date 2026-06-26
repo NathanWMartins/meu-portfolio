@@ -1,4 +1,4 @@
-import { Row, Col, Typography, Space, Button, theme as antdTheme } from "antd";
+import { Row, Col, Typography, theme as antdTheme } from "antd";
 import {
     AiFillLinkedin,
     AiFillInstagram,

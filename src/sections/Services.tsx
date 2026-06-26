@@ -5,7 +5,7 @@ import { useI18n } from "../i18n/useI18n";
 import BorderGlow from "../components/BorderGlow";
 
 const { Content } = Layout;
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
