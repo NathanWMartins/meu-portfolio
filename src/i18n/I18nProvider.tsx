@@ -44,6 +44,8 @@ const MESSAGES = {
         projects_title_4: "FutSpot – Full Stack Platform for Sports Court Management and Scheduling",
         projects_desc_4: "Web platform developed to connect sports court renters and players, centralizing the management of schedules, availability, and reservations. It implements authentication with JWT, permission control by profile, relational modeling with referential integrity, and business rules for automatic validation of scheduling conflicts. Backend structured with NestJS in a modular architecture and REST APIs, with a React frontend focused on intuitive experience and streamlined reservation flow.",
         projects_btn_view: "View project",
+        projects_read_more: "Read more",
+        projects_read_less: "Show less",
         // Contact
         contact_title: "Let's connect!",
         contact_p1: "I'm always open to new collaborations, ideas, and projects that challenge creativity and technology.",
@@ -92,6 +94,8 @@ const MESSAGES = {
         projects_title_4: "FutSpot – Plataforma Full Stack para Gestão e Agendamento de Quadras Esportivas",
         projects_desc_4: "Plataforma web desenvolvida para conectar locadores de quadras esportivas e jogadores, centralizando a gestão de horários, disponibilidade e reservas. Implementa autenticação com JWT, controle de permissões por perfil, modelagem relacional com integridade referencial e regras de negócio para validação automática de conflitos de agendamento. Backend estruturado com NestJS em arquitetura modular e APIs REST, com frontend em React focado em experiência intuitiva e fluxo simplificado de reservas.",
         projects_btn_view: "Ver projeto",
+        projects_read_more: "Leia mais",
+        projects_read_less: "Mostrar menos",
         // Contact
         contact_title: "Vamos conversar!",
         contact_p1: "Estou sempre aberto a novas colaborações, ideias e projetos que unam criatividade e tecnologia.",

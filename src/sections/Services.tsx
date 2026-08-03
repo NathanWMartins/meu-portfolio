@@ -3,6 +3,7 @@ import { CodeOutlined, ApiOutlined, BgColorsOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import { useI18n } from "../i18n/useI18n";
 import BorderGlow from "../components/BorderGlow";
+import TiltCard from "../components/TiltCard";
 
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
@@ -72,97 +73,144 @@ export default function ServicesSection({ dark }: ServicesProps) {
               custom={i * 0.12}
               style={{ height: "100%" }}
             >
-              <BorderGlow
-                edgeSensitivity={30}
-                glowColor="40 80 80"
-                backgroundColor={dark ? "#0a0a0a" : "#ffffff"}
-                borderRadius={28}
-                glowRadius={40}
-                glowIntensity={1}
-                coneSpread={25}
-                animated={false}
-                colors={
-                  dark
-                    ? ["#c084fc", "#f472b6", "#38bdf8"]
-                    : ["#7c3aed", "#db2777", "#2563eb"]
-                }
-              >
-                <div
-                  style={{
-                    borderRadius: 28,
-                    border: `1px solid ${token.colorBorderSecondary}`,
-                    background: token.colorBgContainer,
-                    padding: "32px 28px",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 0,
-                    transition: "transform .2s ease, box-shadow .2s ease",
-                    cursor: "default",
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = dark
-                      ? "0 12px 40px rgba(0,0,0,0.5)"
-                      : "0 12px 40px rgba(0,0,0,0.1)";
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-                  }}
+              <TiltCard maxTilt={9} glareColor="255,255,255" style={{ height: "100%" }}>
+                <BorderGlow
+                  edgeSensitivity={30}
+                  glowColor="40 80 80"
+                  backgroundColor={dark ? "#0a0a0a" : "#ffffff"}
+                  borderRadius={28}
+                  glowRadius={40}
+                  glowIntensity={1}
+                  coneSpread={25}
+                  animated={false}
+                  colors={
+                    dark
+                      ? ["#c084fc", "#f472b6", "#38bdf8"]
+                      : ["#7c3aed", "#db2777", "#2563eb"]
+                  }
                 >
-
-                  {/* Ícone com fundo */}
                   <div
                     style={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: 16,
-                      background: `${card.accent}18`,
-                      border: `1px solid ${card.accent}30`,
+                      position: "relative",
+                      borderRadius: 28,
+                      border: `1px solid ${token.colorBorderSecondary}`,
+                      background: token.colorBgContainer,
+                      padding: "32px 28px",
+                      height: "100%",
                       display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginBottom: 20,
+                      flexDirection: "column",
+                      gap: 0,
+                      overflow: "hidden",
+                      boxShadow: dark
+                        ? "0 20px 50px -20px rgba(0,0,0,0.6)"
+                        : "0 20px 50px -25px rgba(0,0,0,0.2)",
+                      cursor: "default",
                     }}
                   >
-                    {card.icon}
+                    {/* Número gigante em marca d'água */}
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: -18,
+                        right: -6,
+                        fontSize: 110,
+                        fontWeight: 800,
+                        lineHeight: 1,
+                        color: `${card.accent}12`,
+                        userSelect: "none",
+                        pointerEvents: "none",
+                        transform: "translateZ(0)",
+                      }}
+                    >
+                      {card.num}
+                    </span>
+
+                    {/* Ícone com fundo, elevado em profundidade */}
+                    <div
+                      style={{
+                        width: 60,
+                        height: 60,
+                        borderRadius: 18,
+                        background: `linear-gradient(135deg, ${card.accent}30, ${card.accent}10)`,
+                        border: `1px solid ${card.accent}40`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 22,
+                        boxShadow: `0 8px 24px -8px ${card.accent}55`,
+                        transform: "translateZ(50px)",
+                        position: "relative",
+                        zIndex: 2,
+                      }}
+                    >
+                      {card.icon}
+                    </div>
+
+                    {/* Título */}
+                    <Title
+                      level={4}
+                      style={{ marginBottom: 12, marginTop: 0, transform: "translateZ(25px)", position: "relative" }}
+                    >
+                      {t(card.titleKey)}
+                    </Title>
+
+                    {/* Descrição */}
+                    <Paragraph
+                      type="secondary"
+                      style={{
+                        marginBottom: 24,
+                        lineHeight: 1.7,
+                        flex: 1,
+                        transform: "translateZ(15px)",
+                        position: "relative",
+                      }}
+                    >
+                      {t(card.contentKey)}
+                    </Paragraph>
+
+                    {/* Tags */}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 8,
+                        position: "relative",
+                        transform: "translateZ(15px)",
+                      }}
+                    >
+                      {card.tags.map(tag => (
+                        <span
+                          key={tag}
+                          style={{
+                            fontSize: 12,
+                            fontWeight: 600,
+                            padding: "4px 12px",
+                            borderRadius: 999,
+                            background: `${card.accent}15`,
+                            border: `1px solid ${card.accent}30`,
+                            color: card.accent,
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Barra de destaque inferior */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        height: 3,
+                        background: `linear-gradient(90deg, transparent, ${card.accent}, transparent)`,
+                        opacity: 0.8,
+                      }}
+                    />
                   </div>
-
-                  {/* Título */}
-                  <Title level={4} style={{ marginBottom: 12, marginTop: 0 }}>
-                    {t(card.titleKey)}
-                  </Title>
-
-                  {/* Descrição */}
-                  <Paragraph
-                    type="secondary"
-                    style={{ marginBottom: 24, lineHeight: 1.7, flex: 1 }}
-                  >
-                    {t(card.contentKey)}
-                  </Paragraph>
-
-                  {/* Tags */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                    {card.tags.map(tag => (
-                      <span
-                        key={tag}
-                        style={{
-                          fontSize: 12,
-                          fontWeight: 600,
-                          padding: "4px 12px",
-                          borderRadius: 999,
-                          background: `${card.accent}15`,
-                          border: `1px solid ${card.accent}30`,
-                          color: card.accent,
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </BorderGlow>
+                </BorderGlow>
+              </TiltCard>
             </motion.div>
           </Col>
         ))}
