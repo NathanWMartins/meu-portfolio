@@ -41,3 +41,14 @@ body {
   color: #7c3aed !important;
 }
 
+/* Carrossel de serviços — barra de progresso do indicador ativo */
+@keyframes services-dot-progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
