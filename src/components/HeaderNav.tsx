@@ -1,4 +1,4 @@
-import { Layout, Menu, Button } from "antd";
+import { Layout, Menu, Button, Grid } from "antd";
 import {
   HomeOutlined,
   UserOutlined,
@@ -24,6 +24,8 @@ const ACCENT_GRADIENT = "linear-gradient(90deg, #1677ff, #7c3aed)";
 export default function HeaderNav({ dark, onToggleTheme }: Props) {
   const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
+  const screens = Grid.useBreakpoint();
+  const isMobile = !screens.md;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +59,7 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
     },
     {
       key: "contact",
-      icon: <MailOutlined />,
+      icon: isMobile ? undefined : <MailOutlined />,
       label: <a href="#contact">{t("nav_contact")}</a>,
     },
   ];
@@ -118,6 +120,7 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
         Nathan.
       </a>
 
+      {!isMobile ?
       <Menu
         mode="horizontal"
         items={items}
@@ -131,9 +134,11 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
           justifyContent: "center",
           transition: "all .3s",
         }}
-      />
+      /> : null
+      }
+      
 
-      <div style={{ display: "flex", gap: 8 }}>
+      <div style={{ display: "flex", gap: 8, marginLeft: "auto" }}>
         <LanguageSwitcher style={iconButtonStyle} />
         <Button
           onClick={onToggleTheme}

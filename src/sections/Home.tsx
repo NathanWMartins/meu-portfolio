@@ -163,7 +163,7 @@ export default function HomeSection({ dark = false }: Props) {
                       transition={{ duration: 0.45, ease: "easeOut" }}
                       style={{
                         display: "inline-block",
-                        background: "linear-gradient(90deg, #1677ff, #7c3aed)",
+                        background: "linear-gradient(90deg, #75aaf5, #af85f7)",
                         WebkitBackgroundClip: "text",
                         backgroundClip: "text",
                         color: "transparent",

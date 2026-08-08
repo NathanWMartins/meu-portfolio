@@ -1,4 +1,4 @@
-import { Row, Col, Typography, theme as antdTheme } from "antd";
+import { Row, Col, Typography, Button, theme as antdTheme } from "antd";
 import {
     AiFillLinkedin,
     AiFillInstagram,
@@ -8,46 +8,41 @@ import {
 } from "react-icons/ai";
 import { useI18n } from "../i18n/useI18n";
 
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 export default function ContactSection() {
     const { token } = antdTheme.useToken();
-    const {t} = useI18n();
+    const { t } = useI18n();
+
+    const whatsappHref = `https://wa.me/48998472801?text=${encodeURIComponent(t("contact_whatsapp_message"))}`;
 
     const socials = [
         {
             key: "linkedin",
             href: "https://www.linkedin.com/in/nathanwmartins/",
             label: "LinkedIn",
-            icon: <AiFillLinkedin size={28} />,
+            icon: <AiFillLinkedin size={26} />,
             color: "#0A66C2",
         },
         {
             key: "instagram",
             href: "https://www.instagram.com/nathanwmartins",
             label: "Instagram",
-            icon: <AiFillInstagram size={28} />,
+            icon: <AiFillInstagram size={26} />,
             color: "#E1306C",
-        },
-        {
-            key: "whatsapp",
-            href: "https://wa.me/48998472801",
-            label: "WhatsApp",
-            icon: <AiOutlineWhatsApp size={28} />,
-            color: "#25D366",
         },
         {
             key: "email",
             href: "https://mail.google.com/mail/?view=cm&fs=1&to=nathanwillmartins@gmail.com&su=Hello%20Nathan&body=Hi%20Nathan,",
             label: "Email",
-            icon: <AiOutlineMail size={28} />,
+            icon: <AiOutlineMail size={26} />,
             color: "#EA4335",
         },
         {
             key: "github",
             href: "https://github.com/NathanWMartins",
             label: "GitHub",
-            icon: <AiFillGithub size={28} />,
+            icon: <AiFillGithub size={26} />,
             color: "#6e40c9",
         },
     ];
@@ -60,14 +55,42 @@ export default function ContactSection() {
                         {t("contact_title")}
                     </Title>
 
-                    <Paragraph style={{ fontSize: 18, marginBottom: 0 }}>
+                    <Paragraph style={{ fontSize: 17, marginBottom: 32, maxWidth: 560, marginInline: "auto" }}>
                         {t("contact_p1")}
                     </Paragraph>
-                    <Paragraph style={{ fontSize: 18, marginTop: 8 }}>
+
+                    {/* CTA principal — WhatsApp */}
+                    <a href={whatsappHref} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                        <Button
+                            type="primary"
+                            size="large"
+                            icon={<AiOutlineWhatsApp size={20} style={{ verticalAlign: -4 }} />}
+                            style={{
+                                height: 52,
+                                paddingInline: 32,
+                                fontSize: 16,
+                                fontWeight: 600,
+                                background: "linear-gradient(90deg, #1677ff, #7c3aed)",
+                                border: "none",
+                                boxShadow: "0 8px 30px -8px rgba(124,58,237,0.55)",
+                            }}
+                        >
+                            {t("contact_whatsapp_btn")}
+                        </Button>
+                    </a>
+
+                    <Paragraph style={{ fontSize: 14, marginTop: 40, marginBottom: 16, color: token.colorTextSecondary }}>
                         {t("contact_p2")}
                     </Paragraph>
 
-                    <div style={{ marginTop: 40, display: "flex", justifyContent: "center", flexWrap: "nowrap", gap: 16, overflowX: "auto", padding: "8px 4px 4px" }}>
+                    <Text
+                        type="secondary"
+                        style={{ display: "block", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 16 }}
+                    >
+                        {t("contact_other_ways")}
+                    </Text>
+
+                    <div style={{ display: "flex", justifyContent: "center", flexWrap: "nowrap", gap: 16, overflowX: "auto", padding: "8px 4px 4px" }}>
                         {socials.map((s) => (
                             <a
                                 key={s.key}
@@ -89,9 +112,9 @@ export default function ContactSection() {
                                     onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}
                                 >
                                     <div style={{
-                                        width: 56,
-                                        height: 56,
-                                        borderRadius: 16,
+                                        width: 48,
+                                        height: 48,
+                                        borderRadius: 14,
                                         display: "flex",
                                         alignItems: "center",
                                         justifyContent: "center",
@@ -102,7 +125,7 @@ export default function ContactSection() {
                                     }}>
                                         {s.icon}
                                     </div>
-                                    <span style={{ fontSize: 12, fontWeight: 600, color: token.colorTextSecondary }}>
+                                    <span style={{ fontSize: 11.5, fontWeight: 600, color: token.colorTextSecondary }}>
                                         {s.label}
                                     </span>
                                 </div>

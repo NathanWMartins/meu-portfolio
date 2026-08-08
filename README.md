@@ -1,73 +1,45 @@
-# React + TypeScript + Vite
+# Nathan Will Martins — Portfólio & Site de Serviços
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site pessoal de Nathan Will Martins, desenvolvedor Full-Stack. Além de portfólio, funciona como página de captação de clientes para landing pages, sistemas web sob medida e produtos SaaS.
 
-Currently, two official plugins are available:
+Disponível em: https://nathanwill.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## React Compiler
+- **Front-end:** React 19 + TypeScript + Vite
+- **UI:** Ant Design (antd)
+- **Animações:** Framer Motion
+- **i18n:** contexto próprio (`src/i18n`), com suporte a Português e Inglês
+- **Ícones:** Ant Design Icons, React Icons, Devicon (via CDN)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Estrutura
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+  components/     # Header, cards com tilt 3D, fundo animado (FloatingOrbs), etc.
+  sections/       # Home, About, Services, Projects, Contact
+  i18n/           # Provider e dicionário de traduções (pt/en)
+  assets/         # Imagens
+public/
+  projects/       # Screenshots dos projetos exibidos na seção Projects
+  CurriculoNathanWill.pdf
+  favicon.svg, og-image.png, robots.txt, sitemap.xml
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Seções do site
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Home** — hero com apresentação, palavras-chave animadas (landing pages / sistemas web / SaaS) e CTA de orçamento.
+2. **Sobre mim** — texto de apresentação e uma órbita animada com as tecnologias usadas.
+3. **Serviços** — quatro ofertas: Landing Pages, Sistemas Web sob Medida, Plataformas SaaS e UI/Design de Produto.
+4. **Projetos** — showcase alternado dos projetos reais, com carrossel de imagens, stack utilizada e links para o projeto ao vivo/repositório.
+5. **Contato** — CTA principal via WhatsApp (com mensagem pré-preenchida) e links secundários (LinkedIn, Instagram, Email, GitHub).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Rodando localmente
+
+```bash
+npm install
+npm run dev       # ambiente de desenvolvimento
+npm run build     # build de produção (tsc + vite build)
+npm run preview   # preview do build de produção
+npm run lint      # eslint
 ```
