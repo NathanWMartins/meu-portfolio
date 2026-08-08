@@ -32,6 +32,7 @@ const techIcons: Record<string, { src: string; tooltip: string; style?: React.CS
   Firebase: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg", tooltip: "Firebase" },
   Supabase: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg", tooltip: "Supabase" },
   NestJS: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg", tooltip: "NestJS" },
+  NextJS: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", tooltip: "Next.js", style: { filter: "invert(1)" } },
 };
 
 const fadeUp = {
@@ -297,7 +298,11 @@ function ProjectItem({ project, index, dark, isMobile, t }: ProjectItemProps) {
           {project.description}
         </Paragraph>
 
-        <Space wrap size={[10, 10]} style={{ marginBottom: 26 }}>
+        <Space
+          wrap
+          size={[10, 14]}
+          style={{ display: "flex", flexWrap: "wrap", alignItems: "center", width: "100%", marginBottom: 24 }}
+        >
           {project.stack.map(tech => {
             const icon = techIcons[tech];
             return icon ? (
@@ -305,9 +310,10 @@ function ProjectItem({ project, index, dark, isMobile, t }: ProjectItemProps) {
                 <div
                   style={{
                     display: "flex", alignItems: "center", gap: 6,
-                    padding: "6px 12px", borderRadius: 8,
+                    height: 34, padding: "0 12px", borderRadius: 8,
                     border: `1px solid ${token.colorBorderSecondary}`,
                     background: token.colorBgElevated,
+                    boxSizing: "border-box",
                   }}
                 >
                   <img src={icon.src} alt={icon.tooltip} style={{ width: 16, height: 16, ...(icon.style || {}) }} />
@@ -315,12 +321,18 @@ function ProjectItem({ project, index, dark, isMobile, t }: ProjectItemProps) {
                 </div>
               </Tooltip>
             ) : (
-              <Tag key={tech} color="processing">{tech}</Tag>
+              <Tag key={tech} color="processing" style={{ height: 34, display: "inline-flex", alignItems: "center", margin: 0 }}>
+                {tech}
+              </Tag>
             );
           })}
         </Space>
 
-        <Space wrap={false} style={{ overflowX: "auto", maxWidth: "100%", paddingBottom: 4 }}>
+        <Space
+          wrap={false}
+          align="center"
+          style={{ display: "flex", overflowX: "auto", maxWidth: "100%", paddingBottom: 4 }}
+        >
           {project.liveUrl && (
             <Button
               type="primary"
@@ -355,7 +367,7 @@ export default function ProjectsSection({ dark }: ProjectsProps) {
     {
       title: t("projects_title_1"),
       description: t("projects_desc_1"),
-      stack: ["React", "TypeScript", "MUI", "Java", "Spring Boot", "MySQL"],
+      stack: ["React", "TypeScript", "Java", "MySQL"],
       images: ["/projects/wiko/wiko-01.png", "/projects/wiko/wiko-02.png", "/projects/wiko/wiko-03.png", "/projects/wiko/wiko-04.png", "/projects/wiko/wiko-05.png"],
       liveUrl: "https://simada-frontend.vercel.app/",
       githubUrl: "https://github.com/NathanWMartins/simada-frontend",
@@ -364,7 +376,7 @@ export default function ProjectsSection({ dark }: ProjectsProps) {
     {
       title: t("projects_title_4"),
       description: t("projects_desc_4"),
-      stack: ["React Native", "TypeScript", "MUI", "NestJS", "Supabase"],
+      stack: ["React", "TypeScript", "NestJS", "Supabase"],
       images: ["/projects/futspot/futspot-01.png", "/projects/futspot/futspot-02.png", "/projects/futspot/futspot-03.png", "/projects/futspot/futspot-04.png", "/projects/futspot/futspot-05.png"],
       liveUrl: "https://futspot.vercel.app/",
       githubUrl: "https://github.com/NathanWMartins/futspot-frontend",
@@ -373,7 +385,7 @@ export default function ProjectsSection({ dark }: ProjectsProps) {
     {
       title: t("projects_title_3"),
       description: t("projects_desc_3"),
-      stack: ["React Native", "TypeScript", "Firebase", "MUI"],
+      stack: ["React", "TypeScript", "Firebase", "MUI"],
       images: ["/projects/barber/barber-01.png", "/projects/barber/barber-02.png", "/projects/barber/barber-03.png", "/projects/barber/barber-04.png"],
       liveUrl: "https://barber-system-nine.vercel.app/",
       githubUrl: "https://github.com/NathanWMartins/barber-system",
@@ -381,10 +393,10 @@ export default function ProjectsSection({ dark }: ProjectsProps) {
     {
       title: t("projects_title_2"),
       description: t("projects_desc_2"),
-      stack: ["React Native", "Expo", "TypeScript"],
-      images: ["/projects/adocao/adocao-04.png", "/projects/adocao/adocao-02.png", "/projects/adocao/adocao-03.png", "/projects/adocao/adocao-01.png"],
-      liveUrl: "https://adocao-react-native.vercel.app/",
-      githubUrl: "https://github.com/NathanWMartins/AdocaoReactNative",
+      stack: ["NextJS", "Supabase"],
+      images: ["/projects/zebra/zebra-01.png", "/projects/zebra/zebra-02.png", "/projects/zebra/zebra-03.png", "/projects/zebra/zebra-04.png"],
+      liveUrl: "https://zebrabolao.xyz/",
+      githubUrl: "https://github.com/NathanWMartins/ZebraBolao",
     },
   ];
 

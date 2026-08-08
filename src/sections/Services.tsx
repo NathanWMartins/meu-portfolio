@@ -1,5 +1,5 @@
 import { Layout, Row, Col, Typography, theme } from "antd";
-import { CodeOutlined, ApiOutlined, BgColorsOutlined } from "@ant-design/icons";
+import { RocketOutlined, ApiOutlined, CloudOutlined, BgColorsOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import { useI18n } from "../i18n/useI18n";
 import BorderGlow from "../components/BorderGlow";
@@ -23,11 +23,11 @@ interface ServicesProps {
 const CARDS = [
   {
     num: "01",
-    icon: <CodeOutlined style={{ fontSize: 32, color: "#61DAFB" }} />,
+    icon: <RocketOutlined style={{ fontSize: 32, color: "#38bdf8" }} />,
     titleKey: "services_card_1_title" as const,
     contentKey: "services_card_1_content" as const,
-    tags: ["React", "TypeScript", "UI Libraries"],
-    accent: "#61DAFB",
+    tags: ["React", "TypeScript", "SEO"],
+    accent: "#38bdf8",
   },
   {
     num: "02",
@@ -39,9 +39,17 @@ const CARDS = [
   },
   {
     num: "03",
-    icon: <BgColorsOutlined style={{ fontSize: 32, color: "#a78bfa" }} />,
+    icon: <CloudOutlined style={{ fontSize: 32, color: "#f59e0b" }} />,
     titleKey: "services_card_3_title" as const,
     contentKey: "services_card_3_content" as const,
+    tags: ["React", "Node.js", "Spring Boot"],
+    accent: "#f59e0b",
+  },
+  {
+    num: "04",
+    icon: <BgColorsOutlined style={{ fontSize: 32, color: "#a78bfa" }} />,
+    titleKey: "services_card_4_title" as const,
+    contentKey: "services_card_4_content" as const,
     tags: ["Figma", "Accessibility", "Design Systems"],
     accent: "#a78bfa",
   },
@@ -64,7 +72,7 @@ export default function ServicesSection({ dark }: ServicesProps) {
 
       <Row gutter={[24, 24]} justify="center">
         {CARDS.map((card, i) => (
-          <Col key={card.num} xs={22} sm={20} md={20} lg={7}>
+          <Col key={card.num} xs={22} sm={11} md={11} lg={6}>
             <motion.div
               variants={fadeUp}
               initial="hidden"

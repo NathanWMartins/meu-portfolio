@@ -1,4 +1,4 @@
-import { Layout, Menu, Button, theme as antdTheme } from "antd";
+import { Layout, Menu, Button } from "antd";
 import {
   HomeOutlined,
   UserOutlined,
@@ -19,11 +19,11 @@ type Props = {
   onToggleTheme: () => void;
 };
 
+const ACCENT_GRADIENT = "linear-gradient(90deg, #1677ff, #7c3aed)";
+
 export default function HeaderNav({ dark, onToggleTheme }: Props) {
-  const { token } = antdTheme.useToken();
   const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
-  const isScrolledDark = scrolled && dark;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,6 +62,12 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
     },
   ];
 
+  const iconButtonStyle: React.CSSProperties = {
+    background: dark ? "rgba(124,58,237,0.12)" : "rgba(124,58,237,0.08)",
+    border: "1px solid rgba(124,58,237,0.3)",
+    color: dark ? "#e8e6ff" : "#4c3fb4",
+  };
+
   return (
     <Header
       style={{
@@ -75,28 +81,27 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
         transition: "all 0.35s ease",
 
         padding: scrolled ? "8px 32px" : "0 24px",
-
         paddingTop: scrolled ? 10 : 0,
-
         margin: scrolled ? "12px auto" : "0",
-
         width: scrolled ? "calc(100% - 100px)" : "100%",
-
         borderRadius: scrolled ? 16 : 0,
 
-        background: scrolled
-          ? dark
-            ? "rgba(30, 64, 175, 0.35)"
-            : "rgba(59, 130, 246, 0.25)"
-          : token.colorBgElevated,
+        background: dark
+          ? scrolled
+            ? "rgba(18,16,28,0.75)"
+            : "rgba(10,10,16,0.9)"
+          : scrolled
+            ? "rgba(255,255,255,0.78)"
+            : "rgba(255,255,255,0.92)",
 
-        backdropFilter: scrolled
-          ? "blur(20px) saturate(180%)"
-          : "blur(8px) saturate(180%)",
+        backdropFilter: "blur(16px) saturate(180%)",
 
-        boxShadow: scrolled ? "0 8px 30px rgba(0,0,0,0.08)" : "none",
+        boxShadow: scrolled
+          ? "0 8px 30px rgba(80,40,180,0.18)"
+          : "none",
 
-        border: scrolled ? "1px solid rgba(255,255,255,0.25)" : "none",
+        borderBottom: scrolled ? "none" : "1px solid rgba(124,58,237,0.18)",
+        border: scrolled ? "1px solid rgba(124,58,237,0.28)" : undefined,
       }}
     >
       <a
@@ -104,7 +109,10 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
         style={{
           fontWeight: 800,
           fontSize: 18,
-          color: scrolled ? "#fff" : token.colorPrimary,
+          background: ACCENT_GRADIENT,
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          color: "transparent",
         }}
       >
         Nathan.
@@ -115,6 +123,7 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
         items={items}
         selectable={false}
         theme={dark ? "dark" : "light"}
+        className="accent-nav-menu"
         style={{
           flex: 1,
           minWidth: 0,
@@ -125,22 +134,12 @@ export default function HeaderNav({ dark, onToggleTheme }: Props) {
       />
 
       <div style={{ display: "flex", gap: 8 }}>
-        <LanguageSwitcher
-          style={{
-            background: isScrolledDark ? "#fff" : "transparent",
-            color: isScrolledDark ? "#000" : undefined,
-            border: isScrolledDark ? "none" : undefined,
-          }}
-        />
+        <LanguageSwitcher style={iconButtonStyle} />
         <Button
           onClick={onToggleTheme}
           aria-label="Toggle theme"
           icon={dark ? <SunOutlined /> : <MoonOutlined />}
-          style={{
-            background: isScrolledDark ? "#fff" : "transparent",
-            color: isScrolledDark ? "#000" : undefined,
-            border: isScrolledDark ? "none" : undefined,
-          }}
+          style={iconButtonStyle}
         />
       </div>
     </Header>

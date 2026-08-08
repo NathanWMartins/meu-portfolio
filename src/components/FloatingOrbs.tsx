@@ -33,23 +33,27 @@ export default function FloatingOrbs({ dark = false }: Props) {
     window.addEventListener("resize", resize);
 
     const colors = dark
-      ? ["#1677ff", "#7c3aed", "#0ea5e9", "#6366f1"]
-      : ["#3b82f6", "#8b5cf6", "#0ea5e9", "#6366f1"];
+      ? ["#1677ff", "#7c3aed", "#0ea5e9", "#6366f1", "#ec4899", "#22d3ee"]
+      : ["#3b82f6", "#8b5cf6", "#0ea5e9", "#6366f1", "#ec4899"];
 
-    const orbs: Orb[] = Array.from({ length: 6 }, () => ({
+    const orbs: Orb[] = Array.from({ length: 9 }, (_, i) => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      radius: 250 + Math.random() * 250,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      alpha: 0.38 + Math.random() * 0.2,
+      vx: (Math.random() - 0.5) * 0.7,
+      vy: (Math.random() - 0.5) * 0.7,
+      radius: 200 + Math.random() * 280,
+      color: colors[i % colors.length],
+      alpha: 0.42 + Math.random() * 0.25,
     }));
 
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let tick = 0;
 
-      for (const orb of orbs) {
+    const draw = () => {
+      tick += 1;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = dark ? "lighter" : "source-over";
+
+      orbs.forEach((orb, i) => {
         orb.x += orb.vx;
         orb.y += orb.vy;
 
@@ -58,16 +62,21 @@ export default function FloatingOrbs({ dark = false }: Props) {
         if (orb.y < -orb.radius) orb.y = canvas.height + orb.radius;
         if (orb.y > canvas.height + orb.radius) orb.y = -orb.radius;
 
-        const grad = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius);
+        // Respiração suave no raio para dar sensação de "vivo"
+        const pulse = 1 + 0.16 * Math.sin(tick * 0.018 + i * 1.4);
+        const r = orb.radius * pulse;
+
+        const grad = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, r);
         grad.addColorStop(0, orb.color + Math.round(orb.alpha * 255).toString(16).padStart(2, "0"));
         grad.addColorStop(1, orb.color + "00");
 
         ctx.beginPath();
-        ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
+        ctx.arc(orb.x, orb.y, r, 0, Math.PI * 2);
         ctx.fillStyle = grad;
         ctx.fill();
-      }
+      });
 
+      ctx.globalCompositeOperation = "source-over";
       animId = requestAnimationFrame(draw);
     };
 

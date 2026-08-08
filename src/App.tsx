@@ -11,7 +11,7 @@ import { I18nProvider } from "./i18n/I18nProvider";
 const { Content, Footer } = Layout;
 
 export default function App() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
 
   return (
     <I18nProvider>

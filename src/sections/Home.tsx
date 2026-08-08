@@ -1,18 +1,19 @@
+import { useEffect, useState } from "react";
 import {
   Layout,
   Row,
   Col,
-  Avatar,
   Typography,
   Space,
   Button,
   Grid,
 } from "antd";
 import { ArrowRightOutlined, DownloadOutlined } from "@ant-design/icons";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import me from "../assets/me.png";
 import { useI18n } from "../i18n/useI18n";
 import FloatingOrbs from "../components/FloatingOrbs";
+import TiltCard from "../components/TiltCard";
 
 const { Content } = Layout;
 const { Title, Paragraph, Text } = Typography;
@@ -33,7 +34,19 @@ interface Props {
 export default function HomeSection({ dark = false }: Props) {
   const screens = Grid.useBreakpoint();
   const titleLevel = screens.xl ? 1 : 2;
+  const isDesktop = !!screens.md;
   const { t } = useI18n();
+
+  const words = [t("home_word_1"), t("home_word_2"), t("home_word_3")];
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    setWordIndex(0);
+    const id = setInterval(() => {
+      setWordIndex(i => (i + 1) % words.length);
+    }, 2600);
+    return () => clearInterval(id);
+  }, [words.length, t]);
 
   return (
     <section
@@ -81,50 +94,18 @@ export default function HomeSection({ dark = false }: Props) {
       <Content
         style={{ padding: "72px 16px 120px", position: "relative", zIndex: 1, width: "100%" }}
       >
-        <Row justify="center">
-          <Col xs={24} sm={22} md={20} lg={16} xl={14} xxl={12}>
+        <Row justify="center" align="middle" gutter={[40, 48]}>
 
-            {/* Avatar com anel animado */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              custom={0}
-              style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}
-            >
-              <div style={{ position: "relative", display: "inline-block" }}>
-                {/* Anel pulsante */}
-                <motion.div
-                  animate={{ scale: [1, 1.08, 1], opacity: [0.5, 0.15, 0.5] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  style={{
-                    position: "absolute",
-                    inset: -10,
-                    borderRadius: "50%",
-                    background: "radial-gradient(circle, #1677ff55, transparent 70%)",
-                    zIndex: 0,
-                  }}
-                />
-                <Avatar
-                  src={me}
-                  size={160}
-                  style={{
-                    position: "relative",
-                    zIndex: 1,
-                    border: "3px solid rgba(22, 119, 255, 0.4)",
-                    boxShadow: "0 8px 32px rgba(22, 119, 255, 0.25)",
-                  }}
-                />
-              </div>
-            </motion.div>
+          {/* Coluna de texto */}
+          <Col xs={24} md={13} lg={12} xl={12}>
 
             {/* Greeting badge */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              custom={0.15}
-              style={{ textAlign: "center", marginBottom: 8 }}
+              custom={0.1}
+              style={{ textAlign: isDesktop ? "left" : "center", marginBottom: 8 }}
             >
               <span
                 style={{
@@ -152,20 +133,48 @@ export default function HomeSection({ dark = false }: Props) {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              custom={0.3}
+              custom={0.25}
             >
               <Title
                 level={titleLevel}
                 style={{
-                  textAlign: "center",
+                  textAlign: isDesktop ? "left" : "center",
                   marginTop: 16,
                   marginBottom: 16,
-                  lineHeight: 1.1,
+                  lineHeight: 1.15,
                   fontWeight: 800,
                   letterSpacing: "-0.02em",
                 }}
               >
-                <span dangerouslySetInnerHTML={{ __html: t("home_job") }} />
+                <span>{t("home_title_prefix")} </span>
+                <span
+                  style={{
+                    display: "inline-block",
+                    position: "relative",
+                    verticalAlign: "top",
+                  }}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={wordIndex}
+                      initial={{ opacity: 0, y: 18, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -18, filter: "blur(4px)" }}
+                      transition={{ duration: 0.45, ease: "easeOut" }}
+                      style={{
+                        display: "inline-block",
+                        background: "linear-gradient(90deg, #1677ff, #7c3aed)",
+                        WebkitBackgroundClip: "text",
+                        backgroundClip: "text",
+                        color: "transparent",
+                      }}
+                    >
+                      {words[wordIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
+                <br />
+                <span>{t("home_title_suffix")}</span>
               </Title>
             </motion.div>
 
@@ -174,14 +183,15 @@ export default function HomeSection({ dark = false }: Props) {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              custom={0.45}
+              custom={0.4}
             >
               <Paragraph
                 type="secondary"
                 style={{
-                  textAlign: "center",
-                  margin: "0 auto 32px",
-                  maxWidth: 620,
+                  textAlign: isDesktop ? "left" : "center",
+                  margin: isDesktop ? "0 0 32px" : "0 auto 32px",
+                  maxWidth: 560,
+                  marginInline: isDesktop ? undefined : "auto",
                   fontSize: 15,
                   lineHeight: 1.7,
                 }}
@@ -195,19 +205,21 @@ export default function HomeSection({ dark = false }: Props) {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              custom={0.6}
+              custom={0.55}
             >
-              <Row justify="center">
-                <Space size="large" wrap>
+              <Row justify={isDesktop ? "start" : "center"}>
+                <Space size={isDesktop ? "large" : "small"} wrap={false}>
                   <a href="#contact" style={{ textDecoration: "none" }}>
                     <Button
                       type="primary"
-                      size="large"
+                      size={isDesktop ? "large" : "middle"}
                       icon={<ArrowRightOutlined />}
                       style={{
                         boxShadow: "0 4px 20px rgba(22,119,255,0.35)",
-                        height: 46,
-                        paddingInline: 28,
+                        height: isDesktop ? 46 : 38,
+                        paddingInline: isDesktop ? 28 : 16,
+                        fontSize: isDesktop ? 14 : 13,
+                        whiteSpace: "nowrap",
                       }}
                     >
                       {t("home_contact_btn")}
@@ -220,9 +232,14 @@ export default function HomeSection({ dark = false }: Props) {
                     style={{ textDecoration: "none" }}
                   >
                     <Button
-                      size="large"
+                      size={isDesktop ? "large" : "middle"}
                       icon={<DownloadOutlined />}
-                      style={{ height: 46, paddingInline: 28 }}
+                      style={{
+                        height: isDesktop ? 46 : 38,
+                        paddingInline: isDesktop ? 28 : 16,
+                        fontSize: isDesktop ? 14 : 13,
+                        whiteSpace: "nowrap",
+                      }}
                     >
                       {t("home_resume_btn")}
                     </Button>
@@ -230,7 +247,87 @@ export default function HomeSection({ dark = false }: Props) {
                 </Space>
               </Row>
             </motion.div>
+          </Col>
 
+          {/* Coluna da foto */}
+          <Col xs={24} md={11} lg={10} xl={9}>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={0.15}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <div style={{ position: "relative", maxWidth: 340, width: "100%" }}>
+                {/* Blob de fundo */}
+                <motion.div
+                  animate={{ scale: [1, 1.08, 1], opacity: [0.5, 0.2, 0.5] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  style={{
+                    position: "absolute",
+                    inset: -30,
+                    borderRadius: 32,
+                    background: "linear-gradient(135deg, #1677ff55, #7c3aed44, transparent 70%)",
+                    filter: "blur(20px)",
+                    zIndex: 0,
+                  }}
+                />
+
+                <TiltCard maxTilt={8} glareColor="255,255,255">
+                  <div
+                    style={{
+                      position: "relative",
+                      zIndex: 1,
+                      borderRadius: 28,
+                      overflow: "hidden",
+                      border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)"}`,
+                      boxShadow: dark
+                        ? "0 24px 60px -20px rgba(0,0,0,0.6)"
+                        : "0 24px 60px -25px rgba(0,0,0,0.25)",
+                    }}
+                  >
+                    <img
+                      src={me}
+                      alt="Nathan Will Martins"
+                      style={{
+                        width: "100%",
+                        aspectRatio: "4 / 5",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+
+                    {/* Faixa inferior estilo "cartão de produto" */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        padding: "14px 18px",
+                        background: dark
+                          ? "linear-gradient(to top, rgba(0,0,0,0.75), transparent)"
+                          : "linear-gradient(to top, rgba(0,0,0,0.55), transparent)",
+                      }}
+                    >
+                      <Text style={{ color: "#fff", fontWeight: 600, fontSize: 14 }}>
+                        Nathan Will Martins
+                      </Text>
+                      <br />
+                      <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: 12 }}>
+                        Full-Stack Developer
+                      </Text>
+                    </div>
+                  </div>
+                </TiltCard>
+              </div>
+            </motion.div>
+          </Col>
+
+        </Row>
+
+        <Row justify="center">
+          <Col xs={24}>
             {/* Scroll hint */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -268,7 +365,6 @@ export default function HomeSection({ dark = false }: Props) {
                 </div>
               </motion.div>
             </motion.div>
-
           </Col>
         </Row>
       </Content>

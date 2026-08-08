@@ -18,22 +18,26 @@ body {
     linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 30%);
 }
 
-/* Carrossel "Tools I use" */
-.tools-track {
-  animation: tools-marquee 22s linear infinite;
+/* Header — acento em gradiente azul→roxo */
+.accent-nav-menu.ant-menu-horizontal {
+  border-bottom: none !important;
 }
 
-@keyframes tools-marquee {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
+.accent-nav-menu .ant-menu-item {
+  border-bottom: 2px solid transparent !important;
+  transition: color 0.25s ease, border-color 0.25s ease;
 }
 
-.tools-track:hover {
-  animation-play-state: paused;
+.accent-nav-menu .ant-menu-item:hover,
+.accent-nav-menu .ant-menu-item-selected {
+  color: #7c3aed !important;
+  border-bottom-color: #7c3aed !important;
+}
+
+.accent-nav-menu .ant-menu-item:hover a,
+.accent-nav-menu .ant-menu-item-selected a,
+.accent-nav-menu .ant-menu-item:hover .anticon,
+.accent-nav-menu .ant-menu-item-selected .anticon {
+  color: #7c3aed !important;
 }
 
