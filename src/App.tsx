@@ -1,41 +1,49 @@
-import { useState } from "react";
-import { ConfigProvider, Layout, theme as antdTheme } from "antd";
+import { useLayoutEffect, useState } from "react";
+import { ConfigProvider, theme as antdTheme } from "antd";
 import HeaderNav from "./components/HeaderNav";
 import HomeSection from "./sections/Home";
+import ExperienceSection from "./sections/Experience";
+import ProjectsSection from "./sections/Projects";
 import AboutSection from "./sections/About";
 import ServicesSection from "./sections/Services";
-import ProjectsSection from "./sections/Projects";
 import ContactSection from "./sections/Contact";
 import { I18nProvider } from "./i18n/I18nProvider";
 
-const { Content, Footer } = Layout;
-
 export default function App() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(() => localStorage.getItem("theme") === "dark");
+
+  useLayoutEffect(() => {
+    const theme = dark ? "dark" : "light";
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  }, [dark]);
 
   return (
     <I18nProvider>
       <ConfigProvider
         theme={{
           algorithm: dark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
-          token: { borderRadius: 20 },
+          token: {
+            colorPrimary: dark ? "#2f6bd8" : "#1d4fbf",
+            borderRadius: 6,
+            fontFamily: "var(--font)",
+          },
         }}
       >
-        <Layout style={{ minHeight: "100dvh" }}>
-          <HeaderNav dark={dark} onToggleTheme={() => setDark(v => !v)} />
+        <HeaderNav dark={dark} onToggleTheme={() => setDark((v) => !v)} />
 
-          <Content style={{ overflowX: "hidden" }}>
-            <HomeSection dark={dark} />
-            <AboutSection dark={dark} />
-            <ServicesSection dark={dark} />
-            <ProjectsSection dark={dark} />
-            <ContactSection />
-          </Content>
+        <main>
+          <HomeSection dark={dark} />
+          <ProjectsSection />
+          <ExperienceSection />
+          <AboutSection />
+          <ServicesSection />
+          <ContactSection dark={dark} />
+        </main>
 
-          <Footer style={{ textAlign: "center" }}>
-            © {new Date().getFullYear()} Nathan Will — Full Stack Developer
-          </Footer>
-        </Layout>
+        <footer className="footer band">
+          <div className="container">© {new Date().getFullYear()} Nathan Will Martins</div>
+        </footer>
       </ConfigProvider>
     </I18nProvider>
   );

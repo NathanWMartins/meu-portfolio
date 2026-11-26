@@ -1,80 +1,60 @@
-import { Layout, Row, Col, Typography } from "antd";
-import { RocketOutlined, ApiOutlined, CloudOutlined, BgColorsOutlined } from "@ant-design/icons";
-import { motion } from "framer-motion";
+import { CloudOutlined, DashboardOutlined, LayoutOutlined, RocketOutlined } from "@ant-design/icons";
+import Reveal from "../components/Reveal";
+import Section from "../components/Section";
+import Tags from "../components/Tags";
 import { useI18n } from "../i18n/useI18n";
-import ServicesCarousel from "../components/ServicesCarousel";
+import type { MessageKey } from "../i18n/messages";
 
-const { Content } = Layout;
-const { Title } = Typography;
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  visible: (delay = 0) => ({
-    opacity: 1, y: 0,
-    transition: { duration: 0.55, delay, ease: "easeOut" },
-  }),
-};
-
-interface ServicesProps {
-  dark: boolean;
-}
-
-const CARDS = [
+const SERVICES: { icon: React.ReactNode; title: MessageKey; content: MessageKey; tags: string[] }[] = [
   {
-    icon: <RocketOutlined style={{ fontSize: 26, color: "#38bdf8" }} />,
-    titleKey: "services_card_1_title" as const,
-    contentKey: "services_card_1_content" as const,
-    tags: ["React", "TypeScript", "SEO"],
-    accent: "#38bdf8",
-  },
-  {
-    icon: <ApiOutlined style={{ fontSize: 26, color: "#6DB33F" }} />,
-    titleKey: "services_card_2_title" as const,
-    contentKey: "services_card_2_content" as const,
+    icon: <DashboardOutlined />,
+    title: "services_systems_title",
+    content: "services_systems_content",
     tags: ["Java", "Spring Boot", "C#", ".NET"],
-    accent: "#6DB33F",
   },
   {
-    icon: <CloudOutlined style={{ fontSize: 26, color: "#f59e0b" }} />,
-    titleKey: "services_card_3_title" as const,
-    contentKey: "services_card_3_content" as const,
+    icon: <CloudOutlined />,
+    title: "services_saas_title",
+    content: "services_saas_content",
     tags: ["React", "Node.js", "Spring Boot"],
-    accent: "#f59e0b",
   },
   {
-    icon: <BgColorsOutlined style={{ fontSize: 26, color: "#a78bfa" }} />,
-    titleKey: "services_card_4_title" as const,
-    contentKey: "services_card_4_content" as const,
-    tags: ["Figma", "Accessibility", "Design Systems"],
-    accent: "#a78bfa",
+    icon: <RocketOutlined />,
+    title: "services_landing_title",
+    content: "services_landing_content",
+    tags: ["React", "TypeScript", "SEO"],
+  },
+  {
+    icon: <LayoutOutlined />,
+    title: "services_design_title",
+    content: "services_design_content",
+    tags: ["Figma", "Design Systems"],
   },
 ];
 
-export default function ServicesSection({ dark }: ServicesProps) {
+export default function ServicesSection() {
   const { t } = useI18n();
 
-  const slides = CARDS.map((card) => ({
-    icon: card.icon,
-    title: t(card.titleKey),
-    description: t(card.contentKey),
-    tags: card.tags,
-    accent: card.accent,
-  }));
-
   return (
-    <Content id="services" style={{ padding: "80px 16px 60px", scrollMarginTop: 88, overflow: "hidden" }}>
-      {/* Título */}
-      <Row justify="center" style={{ marginBottom: 24 }}>
-        <Col style={{ textAlign: "center" }}>
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Title style={{ margin: 0 }}>{t("services_title")}</Title>
-          </motion.div>
-        </Col>
-      </Row>
-
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.15}>
-        <ServicesCarousel slides={slides} dark={dark} />
-      </motion.div>
-    </Content>
+    <Section
+      id="services"
+      eyebrow={t("services_eyebrow")}
+      title={t("services_title")}
+      description={t("services_description")}
+      alt
+    >
+      <div className="services-grid">
+        {SERVICES.map((service, index) => (
+          <Reveal key={service.title} delay={index * 80}>
+            <article className="card service">
+              <span className="icon-tile">{service.icon}</span>
+              <h3>{t(service.title)}</h3>
+              <p>{t(service.content)}</p>
+              <Tags items={service.tags} />
+            </article>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
   );
 }

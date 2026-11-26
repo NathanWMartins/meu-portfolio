@@ -1,45 +1,27 @@
-import { Dropdown, Button, Grid } from "antd";
-import type { MenuProps } from "antd";
 import { useI18n } from "../i18n/useI18n";
+import type { Lang } from "../i18n/messages";
 
-const Flag: React.FC<{ code: "pt" | "en" }> = ({ code }) => (
-    <span style={{ fontSize: 18, marginRight: 8, marginBottom: 5 }}>{code === "pt" ? "🇧🇷" : "🇺🇸"}</span>
-);
+const OPTIONS: { code: Lang; label: string }[] = [
+    { code: "pt", label: "Português" },
+    { code: "en", label: "English" },
+];
 
-type Props = {
-  style?: React.CSSProperties;
-};
-
-export default function LanguageSwitcher({ style }: Props) {
+export default function LanguageSwitcher() {
     const { lang, setLang } = useI18n();
-    const screens = Grid.useBreakpoint();
-    const isMobile = !screens.md;
-
-    const items: MenuProps["items"] = [
-        {
-            key: "pt",
-            label: <div><Flag code="pt" />Português</div>,
-        },
-        {
-            key: "en",
-            label: <div><Flag code="en" />English</div>,
-        },
-    ];
 
     return (
-        <Dropdown            
-            menu={{
-                items,
-                selectable: true,
-                defaultSelectedKeys: [lang],
-                onClick: ({ key }) => setLang(key as "pt" | "en"),
-            }}
-            trigger={["click"]}
-        >
-            <Button style={style}>
-                <Flag code={lang} />
-                {isMobile ? lang.toUpperCase() : lang === "pt" ? "Português" : "English"}
-            </Button>
-        </Dropdown>
+        <div className="lang-switcher">
+            {OPTIONS.map(({ code, label }) => (
+                <button
+                    key={code}
+                    type="button"
+                    title={label}
+                    aria-pressed={lang === code}
+                    onClick={() => setLang(code)}
+                >
+                    {code.toUpperCase()}
+                </button>
+            ))}
+        </div>
     );
 }
