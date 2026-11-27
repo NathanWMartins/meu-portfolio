@@ -20,12 +20,23 @@ src/
   sections/       # Home, Projects, Experience, About, Services, Contact
   data/           # Projetos, tecnologias e canais de contato
   i18n/           # Provider e dicionário de traduções (pt/en)
-  assets/         # Imagens
+  seo.ts          # Metadados, dados estruturados, llms.txt e sitemap
+  entry-server.tsx # Entrada usada na pré-renderização
+scripts/
+  prerender.mjs   # Grava o HTML de cada idioma em dist/ no fim do build
 public/
   projects/       # Screenshots dos projetos exibidos na seção Projects
+  nathan-will-martins.jpg  # Foto
   CurriculoNathanWill.pdf
-  favicon.svg, og-image.png, robots.txt, sitemap.xml
+  favicon.svg, og-image.png, robots.txt
 ```
+
+## Busca e assistentes de IA (SEO)
+
+- `npm run build` pré-renderiza `/` (português) e `/en/` (inglês), então o conteúdo está no HTML mesmo para robôs que não executam JavaScript.
+- Títulos, descrições e o endereço do site ficam em `src/i18n/page.ts`. Se o domínio mudar, atualize `SITE_URL` e o `public/robots.txt`.
+- `sitemap.xml` e `llms.txt` são gerados no build a partir dos textos e dados do site; não precisam de edição manual.
+- O PDF do currículo está marcado como `noindex` no `vercel.json`.
 
 ## Seções do site
 

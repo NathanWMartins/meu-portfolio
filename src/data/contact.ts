@@ -2,6 +2,7 @@ export const EMAIL = "nathanwillmartins@gmail.com";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/nathanwmartins/";
 export const GITHUB_URL = "https://github.com/NathanWMartins";
 export const RESUME_URL = "/CurriculoNathanWill.pdf";
+export const PHOTO_PATH = "/nathan-will-martins.jpg";
 
 // O wa.me exige o número completo, com o código do país (55).
 export const WHATSAPP_DISPLAY = "+55 48 99847-2801";

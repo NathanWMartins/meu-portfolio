@@ -8,9 +8,13 @@ import AboutSection from "./sections/About";
 import ServicesSection from "./sections/Services";
 import ContactSection from "./sections/Contact";
 import { I18nProvider } from "./i18n/I18nProvider";
+import type { Lang } from "./i18n/messages";
 
-export default function App() {
-  const [dark, setDark] = useState(() => localStorage.getItem("theme") === "dark");
+export default function App({ initialLang }: { initialLang?: Lang }) {
+  // Na pré-renderização (Node) não existe localStorage
+  const [dark, setDark] = useState(
+    () => typeof window !== "undefined" && localStorage.getItem("theme") === "dark",
+  );
 
   useLayoutEffect(() => {
     const theme = dark ? "dark" : "light";
@@ -19,7 +23,7 @@ export default function App() {
   }, [dark]);
 
   return (
-    <I18nProvider>
+    <I18nProvider initialLang={initialLang}>
       <ConfigProvider
         theme={{
           algorithm: dark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,

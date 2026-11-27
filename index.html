@@ -2,6 +2,16 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Aplica o tema salvo antes da primeira pintura da página já pré-renderizada
+      document.documentElement.classList.add("js");
+      try {
+        if (localStorage.getItem("theme") === "dark") document.documentElement.dataset.theme = "dark";
+      } catch {
+        // armazenamento bloqueado: segue no tema claro
+      }
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -9,21 +19,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- No build, o trecho abaixo é substituído pelas tags geradas em src/seo.ts -->
+    <!--seo:start-->
     <title>Nathan Will Martins — Desenvolvedor Full-Stack | .NET, Java e React</title>
-    <meta name="description" content="Desenvolvedor Full-Stack: sistemas web, plataformas SaaS e landing pages com C#/.NET, Java/Spring Boot, React e TypeScript." />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://nathanwill.vercel.app/" />
-    <meta property="og:title" content="Nathan Will Martins — Desenvolvedor Full-Stack | .NET, Java e React" />
-    <meta property="og:description" content="Desenvolvedor Full-Stack: sistemas web, plataformas SaaS e landing pages com C#/.NET, Java/Spring Boot, React e TypeScript." />
-    <meta property="og:image" content="https://nathanwill.vercel.app/og-image.png" />
-    <meta property="og:locale" content="pt_BR" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Nathan Will Martins — Desenvolvedor Full-Stack | .NET, Java e React" />
-    <meta name="twitter:description" content="Desenvolvedor Full-Stack: sistemas web, plataformas SaaS e landing pages." />
-    <meta name="twitter:image" content="https://nathanwill.vercel.app/og-image.png" />
+    <!--seo:end-->
   </head>
   <body>
     <div id="root"></div>

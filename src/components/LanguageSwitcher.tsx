@@ -1,5 +1,6 @@
 import { useI18n } from "../i18n/useI18n";
 import type { Lang } from "../i18n/messages";
+import { LOCALES, pathForLang } from "../i18n/page";
 
 const OPTIONS: { code: Lang; label: string }[] = [
     { code: "pt", label: "Português" },
@@ -12,15 +13,21 @@ export default function LanguageSwitcher() {
     return (
         <div className="lang-switcher">
             {OPTIONS.map(({ code, label }) => (
-                <button
+                // Link de verdade para os buscadores acharem a outra versão
+                <a
                     key={code}
-                    type="button"
+                    href={pathForLang(code)}
+                    hrefLang={LOCALES[code]}
                     title={label}
-                    aria-pressed={lang === code}
-                    onClick={() => setLang(code)}
+                    aria-current={lang === code ? "true" : undefined}
+                    onClick={(event) => {
+                        if (event.ctrlKey || event.metaKey || event.shiftKey) return;
+                        event.preventDefault();
+                        setLang(code);
+                    }}
                 >
                     {code.toUpperCase()}
-                </button>
+                </a>
             ))}
         </div>
     );

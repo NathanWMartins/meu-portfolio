@@ -1,0 +1,9 @@
+{
+  "buildCommand": "npm run build",
+  "headers": [
+    {
+      "source": "/CurriculoNathanWill.pdf",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ]
+}

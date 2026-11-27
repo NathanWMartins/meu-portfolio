@@ -1,7 +1,7 @@
-import me from "../assets/me.png";
 import Reveal from "../components/Reveal";
 import Section from "../components/Section";
 import Tags from "../components/Tags";
+import { PHOTO_PATH } from "../data/contact";
 import { PRACTICES, STACK } from "../data/stack";
 import { useI18n } from "../i18n/useI18n";
 
@@ -18,7 +18,7 @@ export default function AboutSection() {
         <Section id="about" eyebrow={t("about_eyebrow")} title={t("about_title")}>
             <Reveal>
                 <div className="about-grid">
-                    <img className="about-photo" src={me} alt={t("home_photo_alt")} loading="lazy" />
+                    <img className="about-photo" src={PHOTO_PATH} alt={t("home_photo_alt")} loading="lazy" />
                     <div>
                         <div className="about-text">
                             <p>{t("about_p1")}</p>

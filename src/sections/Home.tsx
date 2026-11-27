@@ -1,9 +1,8 @@
 import { Button } from "antd";
 import { ArrowRightOutlined, DownloadOutlined, GithubOutlined, LinkedinFilled } from "@ant-design/icons";
-import me from "../assets/me.png";
 import BandTheme from "../components/BandTheme";
 import BrowserFrame from "../components/BrowserFrame";
-import { GITHUB_URL, LINKEDIN_URL, RESUME_URL } from "../data/contact";
+import { GITHUB_URL, LINKEDIN_URL, PHOTO_PATH, RESUME_URL } from "../data/contact";
 import { INTEGRATIONS } from "../data/stack";
 import { useI18n } from "../i18n/useI18n";
 
@@ -17,7 +16,7 @@ export default function HomeSection({ dark }: { dark: boolean }) {
           <div className="container hero-grid">
             <div className="hero-copy">
               <div className="hero-author">
-                <img src={me} alt={t("home_photo_alt")} />
+                <img src={PHOTO_PATH} alt={t("home_photo_alt")} />
                 <p>
                   <strong>Nathan Will Martins</strong>
                   <span>{t("home_author_role")}</span>
@@ -54,12 +53,12 @@ export default function HomeSection({ dark }: { dark: boolean }) {
             <div className="hero-visual" aria-hidden="true">
               <BrowserFrame
                 className="hero-frame-back"
-                src="/projects/barber/barber-01.png"
+                src="/projects/barber/barber-01.jpg"
                 url="barber-system-nine.vercel.app"
               />
               <BrowserFrame
                 className="hero-frame-front"
-                src="/projects/futspot/futspot-04.png"
+                src="/projects/futspot/futspot-04.jpg"
                 url="futspot.vercel.app"
               />
             </div>

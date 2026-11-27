@@ -22,7 +22,12 @@ function ProjectShowcase({ project }: { project: Project }) {
           onClick={() => setGalleryOpen(true)}
           aria-label={`${t("projects_zoom")}: ${project.name}`}
         >
-          <BrowserFrame src={project.images[current]} url={project.liveUrl} lazy />
+          <BrowserFrame
+            src={project.images[current]}
+            url={project.liveUrl}
+            alt={`${project.name} — ${t(project.subtitle)}`}
+            lazy
+          />
           <span className="showcase-zoom">
             <ZoomInOutlined /> {t("projects_zoom")}
           </span>
